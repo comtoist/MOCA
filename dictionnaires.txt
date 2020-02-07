@@ -1,0 +1,11 @@
+Contenu dictionnaire pour hugo.txt : 
+je (1,1)
+laisserai (1,1)
+les (1,1) (1,1)
+ne (1,1)
+pas (1,1)
+pervenches (1,1)
+qsgon (1,1)
+sans (1,1)
+se (1,1)
+sous (1,1)

@@ -162,4 +162,3 @@ unsigned int current_line, unsigned int current_col){
   return res;
 }
 
-

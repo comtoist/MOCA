@@ -1,0 +1,89 @@
+        -:    0:Source:src/dico.c
+        -:    0:Graph:obj/dico.gcno
+        -:    0:Data:obj/dico.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:#include <stdio.h>
+        -:    2:#include <stdlib.h>
+        -:    3:#include <string.h>
+        -:    4:#include <stdint.h>
+        -:    5:#include "types.h"
+        -:    6:#include "dico.h"
+        -:    7:
+function insertDico called 0 returned 0% blocks executed 0%
+    #####:    8:void insertDico(dico* dictionary, mot_t* linkWord) {
+    #####:    9:  dico* newDictionary = (dico*) malloc(sizeof(dico));
+    #####:   10:  dico* newDictionaryPrevious = (dico*) malloc(sizeof(dico));
+    #####:   11:  newDictionary = dictionary;
+    #####:   12:  newDictionaryPrevious = newDictionary;
+    #####:   13:  while(compareWord(newDictionary->mot,linkWord)<0 && newDictionary != NULL) {
+call    0 never executed
+branch  1 never executed
+branch  2 never executed
+branch  3 never executed
+branch  4 never executed
+    #####:   14:    if (newDictionary->next == NULL) {
+branch  0 never executed
+branch  1 never executed
+    #####:   15:      addTailWord(newDictionary,linkWord);
+call    0 never executed
+    #####:   16:      return;
+        -:   17:    } else {
+    #####:   18:      newDictionaryPrevious = newDictionary;
+    #####:   19:      newDictionary = newDictionary->next;
+        -:   20:    }
+        -:   21:  }
+    #####:   22:  if (compareWord(newDictionary->mot,linkWord)==0) {
+call    0 never executed
+branch  1 never executed
+branch  2 never executed
+    #####:   23:    incWord(newDictionary->mot->queue_liste,linkWord->tete_liste->line,linkWord->tete_liste->colonne);
+call    0 never executed
+        -:   24:  } else { //
+    #####:   25:    if (newDictionary == dictionary) {
+branch  0 never executed
+branch  1 never executed
+    #####:   26:      addHeadWord(newDictionary,linkWord);
+call    0 never executed
+        -:   27:    } else {
+    #####:   28:      addTailWord(newDictionaryPrevious,linkWord);
+call    0 never executed
+        -:   29:    }
+        -:   30:  }
+        -:   31:}
+        -:   32:
+function addToDico called 0 returned 0% blocks executed 0%
+    #####:   33:void addToDico(dico* dictionary, char* word, unsigned int* line, unsigned int* colonne) {
+    #####:   34:  mot_t* newLinkWord = generateMot_t(word,line,colonne);
+call    0 never executed
+    #####:   35:  if (dictionary == NULL) {
+branch  0 never executed
+branch  1 never executed
+    #####:   36:    dico* newDictionary = (dico*) malloc(sizeof(dico));
+    #####:   37:    newDictionary->mot = newLinkWord;
+    #####:   38:    newDictionary->next = NULL;
+    #####:   39:    dictionary = newDictionary;
+    #####:   40:  } else if (dictionary->mot == NULL) {
+branch  0 never executed
+branch  1 never executed
+    #####:   41:    dictionary->mot = newLinkWord;
+        -:   42:  } else {
+    #####:   43:    insertDico(dictionary,newLinkWord);
+call    0 never executed
+        -:   44:  }
+    #####:   45:}
+        -:   46:
+        -:   47:
+function generateMot_t called 10 returned 100% blocks executed 100%
+       10:   48:mot_t* generateMot_t(char* word,unsigned  int* line, unsigned int* colonne){
+       10:   49:  mot_t* newLinkWord = (mot_t*) malloc(sizeof(mot_t));
+       10:   50:  emplacement_t* location = (emplacement_t*) malloc(sizeof(emplacement_t));
+       10:   51:  newLinkWord->tete_mot = stringToMaillon(word);
+call    0 returned 10
+       10:   52:  newLinkWord->queue_mot = newLinkWord->tete_mot;
+       10:   53:  location->line = *line;
+       10:   54:  location -> colonne = *colonne;
+       10:   55:  newLinkWord->tete_liste = location;
+       10:   56:  newLinkWord->queue_liste = location;
+       10:   57:  return newLinkWord;
+        -:   58:}

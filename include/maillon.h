@@ -27,7 +27,6 @@ void incWord(emplacement_t* location, unsigned int line, unsigned int colonne);
 char *next_word(FILE *f, unsigned int *nblin, unsigned int *nbcol,char *separators ,
 unsigned int current_line, unsigned int current_col);
 
-
 #endif
 
 

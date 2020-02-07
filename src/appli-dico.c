@@ -3,14 +3,17 @@
 
 #include "dico.h"
 
+#include "CuTest.h"
+#include "AllTests.h"
+
+#define FINAL 0
 
 char *separators = SEP;
 unsigned int current_line=1;
 unsigned int current_col=1;
 
-int main(int argc, char* argv[])
-{
-  if(argc != 2){
+int maindico(int argc, char* argv[]){
+ if(argc != 2){
     fprintf(stderr, "Il faut un nom de fichier texte\n");
     exit(BADARGNUMBER);
   }
@@ -31,5 +34,16 @@ int main(int argc, char* argv[])
   }
   displayDico(dictionary);
   fclose(f);
+  return 0;
+}
+
+int main(int argc, char* argv[])
+{
+  #if FINAL
+    maindico(argc,argv);
+
+  #else
+    RunAllTests();
+  #endif
   return 0;
 }

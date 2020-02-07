@@ -11,4 +11,6 @@ void insertDico(dico* dictionary, mot_t* linkWord);
 
 void addToDico(dico* dictionary, char* word, unsigned int* line, unsigned int* colonne);
 
+mot_t* generateMot_t(char* word,unsigned  int* line, unsigned int* colonne);
+
 #endif
