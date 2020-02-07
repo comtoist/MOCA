@@ -1,0 +1,16 @@
+rajout des lignes fig1
+
+ajout d'un test dans suite de test TestStringTo...
+pour verifier que les 2 fonctions marchent
+resultat : ca marche
+
+ajout testgetsize
+
+resultat : ca marche
+
+
+expliquer les differents test
++res
+
+ajout   mot_t* newLinkWord = generateMot_t(word,line,colonne);
+dans addtodico
