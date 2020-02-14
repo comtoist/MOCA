@@ -1,0 +1,49 @@
+afl a trouvé une erreur avec l'entrée 426.
+avec gdb : 
+Program received signal SIGSEGV, Segmentation fault.
+0x0000000000400c20 in main (argc=<optimized out>, argv=<optimized out>) at exemple1.c:19
+19	  	  if (i>100) *p = 1 ;
+
+
+On a tester sur testindice :
+	decrire le fichier
+int main (int argc, char *argv[])
+{
+  int t[2] ;
+  FILE *f = fopen(argv[1], "r") ;
+  int i;
+  int i1 ;
+
+  if (argc != 2) return 1 ;
+  fscanf(f, "%d", &i1) ;
+  t[i1] = 1;
+
+  fclose (f) ;
+  return 0 ;
+}
+ca a buguer avec 3 et 7 -> normal car tableau de taille 2
+il a fallu compiler avec AFL_DONT_OPTIMIZE=1 afl-gcc testIndiceTab.c -o testIndiceTab -g
+
+exo3
+compiler avec afl-fuzz -i afl_in/ -o afl_out/ ./vulnerable  quand ligne tapés au clavier
+erreur a cause de : run u -3
+
+erreur dans gdb : Program received signal SIGSEGV, Segmentation fault.
+0x0000000000400d0e in process (input=0x7fffffffe1d0 "u -3") at vulnerable.c:31
+31				out[i] = rest[i] - 32; // only handles ASCII
+
+
+
+erreur trouvé apl_out/crashes : - afl_out/crashes/id\:000000\,sig\:11\,src\:000000\,op\:flip1\,pos\:21 
+				voici un fichier test�
+				
+				-more afl_out/crashes/id\:000001\,sig\:11\,src\:000000\,op\:int16\,pos\:19\,val\:be\:+255
+				voici un fichier te
+
+erreur dans gdb :
+Program received signal SIGSEGV, Segmentation fault.
+0x000000000040a1ef in next_word (f=0x614010, nblin=0x614250, nbcol=<optimized out>, 
+    separators=0x40e4c8 " ,.-", current_line=<optimized out>, current_col=<optimized out>)
+    at src/maillon.c:145
+145	  while ((strchr(separators, s[i]=fgetc(f)) == NULL) && s[i] != '\n'){
+
