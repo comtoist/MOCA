@@ -1,12 +1,10 @@
-CC=gcc
+CC=wllvm
 SRC_DIR=src
 OBJ_DIR=obj
 BIN_DIR=bin
 SRC= $(wildcard $(SRC_DIR)/*.c)
 OBJS=$(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
-CFLAGS=-Wall 
-COVFLAG = -fprofile-arcs -ftest-coverage
-
+CFLAGS=-Wall -g
 CPPFLAGS=-Iinclude 
 ARCHIVE=librairie/lib
 #LDFLAGS=-Llibrairie/lib
@@ -14,10 +12,10 @@ EXEC=appli-dico
 
 
 $(BIN_DIR)/$(EXEC): $(OBJS)
-	$(CC) $(OBJS) $(COVFLAG) -o $@ 
+	$(CC) $(OBJS) -o $@  
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	$(CC) $(CFLAGS) $(CPPFLAGS) $(COVFLAG) -c $< -o $@
+	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@ 
 
 $(ARCHIVE)/libmaillon.a  : $(OBJ_DIR)/maillon.o
 	ar r $(ARCHIVE)/libmaillon.a $(OBJ_DIR)/maillon.o
