@@ -6,7 +6,7 @@
 #include "CuTest.h"
 #include "AllTests.h"
 
-#define FINAL 0
+#define FINAL 1
 
 char *separators = SEP;
 unsigned int current_line=1;
@@ -28,11 +28,13 @@ int maindico(int argc, char* argv[]){
   unsigned int* colonne = (unsigned int*) malloc(sizeof(int));
   char* word = (char*) malloc(sizeof(char)*maxSizeWord);
   dico* dictionary = (dico*) malloc(sizeof(dico));
+  dictionary->mot = NULL;
+  dictionary->next = NULL;
   while(!feof(f)) {
     word = next_word(f,line,colonne,separators,current_line,current_col);
     addToDico(dictionary,word,line,colonne);
   }
-  displayDico(dictionary);
+  //displayDico(dictionary);
   fclose(f);
   return 0;
 }

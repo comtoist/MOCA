@@ -48,6 +48,7 @@ void addToDico(dico* dictionary, char* word, unsigned int* line, unsigned int* c
 mot_t* generateMot_t(char* word,unsigned  int* line, unsigned int* colonne){
   mot_t* newLinkWord = (mot_t*) malloc(sizeof(mot_t));
   emplacement_t* location = (emplacement_t*) malloc(sizeof(emplacement_t));
+  location->next = NULL;
   newLinkWord->tete_mot = stringToMaillon(word);
   newLinkWord->queue_mot = newLinkWord->tete_mot;
   location->line = *line;

@@ -68,7 +68,7 @@ char* maillonToString(maillon_t* link) {
       }
       useLink = useLink->next;
     }
-    word[index+1] = '\0';
+    word[index] = '\0';
     free(useLink);
     return word;
   }
@@ -137,7 +137,11 @@ unsigned int current_line, unsigned int current_col){
     if (sep == '\n'){
       startl++; startc = 1;
     }
+    #ifdef KLEE
+    read_int();
+    #else
     sep = fgetc(f);
+    #endif
   }
   ungetc(sep,f);
   if (nblin != NULL) *nblin = startl;
@@ -161,4 +165,3 @@ unsigned int current_line, unsigned int current_col){
   current_col = startc;
   return res;
 }
-
