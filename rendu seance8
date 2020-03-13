@@ -1,0 +1,13 @@
+rajout d'un free appli dico free(line) 
+erreur avec valgrind:
+==22557== 4 bytes in 1 blocks are definitely lost in loss record 1 of 21
+==22557==    at 0x4C2FB0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==22557==    by 0x10A614: maindico (appli-dico.c:27)
+==22557==    by 0x10A6E8: main (appli-dico.c:45)
+
+
+
+rajout   while ((strchr(separators,sep) == NULL  || sep == '\n') && !feof(f)) 
+
+
+o, utiliser nbline et nbcol pour transmettre les current_ligne et current_colonne du mots actuel car il se mettaint pas a jour dans la fonction next_word
