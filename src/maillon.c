@@ -21,14 +21,15 @@ maillon_t* stringToMaillon(char* word) {
     int i;
     for(i=0;i<strlen(word);i++) {
       if ((i % 6) == 0 && useLink->elem != 0) {
-	maillon_t* newLink = (maillon_t*) malloc(sizeof(maillon_t));
-	newLink->elem = 0;
-	newLink->next = NULL;
-	useLink->next = newLink;
-	useLink = newLink;
+        maillon_t* newLink = (maillon_t*) malloc(sizeof(maillon_t));
+        newLink->elem = 0;
+        newLink->next = NULL;
+        useLink->next = newLink;
+        useLink = newLink;
       }
       setCharnum(useLink,(i%6),word[i]);
     }
+    
     return savLink;
   }
 }
@@ -60,13 +61,15 @@ char* maillonToString(maillon_t* link) {
     int index = 0, i = 0;
     while (useLink != NULL) {
       for(i=0;i<=5;i++) {
-	if (isAvailable(getCharnum(useLink,i)) == 0) {break;}
-	else {
-	  word[index] = getCharnum(useLink,i);
-	  index++;
-	}
+        if (isAvailable(getCharnum(useLink,i)) == 0) {break;}
+        else {
+          word[index] = getCharnum(useLink,i);
+          index++;
+        }
       }
+      
       useLink = useLink->next;
+    
     }
     word[index] = '\0';
     free(useLink);
@@ -132,28 +135,32 @@ unsigned int current_line, unsigned int current_col){
   unsigned int i=0, startl = current_line, startc = current_col;
   char sep;
   sep = fgetc(f);
-  while (strchr(separators,sep) != NULL  || sep == '\n') {
+  while ((strchr(separators,sep) == NULL  || sep == '\n') && !feof(f)) {
+  printf("%c ",sep);
+    printf(" %d\n",startc);
     startc++;
     if (sep == '\n'){
       startl++; startc = 1;
     }
-    #ifdef KLEE
-    read_int();
-    #else
-    sep = fgetc(f);
-    #endif
+    // #ifdef KLEE
+    // read_int();
+    // #else
+     sep = fgetc(f);
+    // #endif
   }
   ungetc(sep,f);
+  
   if (nblin != NULL) *nblin = startl;
   if (nbcol != NULL) *nbcol = startc;
-  while ((strchr(separators, s[i]=fgetc(f)) == NULL) && s[i] != '\n'){
+  while (((strchr(separators, s[i]=fgetc(f)) == NULL) && s[i] != '\n')&& !feof(f)){
+    printf("%c",s[i]);
     i++; startc++;
   }
   sep = s[i];
   s[i] = '\0';
   res = (char *)malloc(strlen(s)+1);
   strcpy(res,s);
-  while (strchr(separators,sep) != NULL  || sep == '\n') {
+  while (strchr(separators,sep) != NULL  || sep == '\n' ) {
     startc++;
     if (sep == '\n'){
       startl++; startc = 1;
@@ -163,5 +170,20 @@ unsigned int current_line, unsigned int current_col){
   ungetc(sep,f);
   current_line = startl;
   current_col = startc;
+
+  printf("col :%d \n",current_col);
+    printf("lig :%d ",current_line);
+  *nbcol=current_col;
+  *nblin=current_line;
   return res;
+}
+
+void freeMaillon(maillon_t* maillon){
+  maillon_t* sauv;
+  while(maillon != NULL){
+    sauv = maillon;
+    maillon=maillon->next;
+    free(sauv);
+  }
+
 }
